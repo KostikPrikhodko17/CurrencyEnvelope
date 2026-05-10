@@ -12,22 +12,24 @@ namespace CurrencyEnvelope
         {
             // 2 добавить больше валют
             // 4. добаваиь цикл для повторного использования программы без перезапуска
+            // 3. добавить возможность пользователю вводить свои собственные курсы валют для конвертации
+            // 1. Добавить доп массиив с номерами валют и улучшить ыцith case с помощью when Contains()
             // 5. добавить обработку ошибок для некорректного ввода (например, если пользователь вводит не число для суммы конвертации)
             // 6. Улучшить switch-case для обработки выбора валюты, чтобы можно было легко добавлять новые валюты в будущем (например, использовать словарь для хранения курсов валют и их названий)
             // 7. В отображение результата добавить какую валюту пользователь получил после конвертации, а не только сумму
 
 
 
-            string[] currency = { "1. TRY < > RUB", "2. USD < > RUB" };
-            double[] priceCurrency = { 1.64, 0.61 };
+            string[] currency = { "1. TRY > RUB", "2. RUB > TRY", "3. USD > RUB", "4. RUB > USD" };
+            double[] priceCurrency = { 1.64, 0.61, 74.24, 0.013 };
 
 
             Console.WriteLine("Конвертация валют.");
             Console.WriteLine("\nВыберите валюту для конвертации.");
 
-            for (int i = 0; i <= currency.Length - 1; i++)
+            foreach (string item in currency)
             {
-                Console.WriteLine(currency[i]);
+                Console.WriteLine(item);
             }
 
             string userChoice = Console.ReadLine();
@@ -35,6 +37,9 @@ namespace CurrencyEnvelope
             switch (userChoice)
             {
                 case "1":
+                case "2":
+                case "3":
+                case "4":
                     double correctPrice = ReturnCurrency(currency, userChoice, priceCurrency);
                     double result = ConvertCurrency(correctPrice);
                     Console.WriteLine($"Результат конвертации: {result}");
@@ -49,21 +54,10 @@ namespace CurrencyEnvelope
             return sumConvert * priceCurrency;
         }
 
-        static double ReturnCurrency(string[] curruncy, string userChoice, double[] priceCurrency) // определение направления конвертации и возврат правильного курса валюты
+        static double ReturnCurrency(string[] curruncy, string userChoice, double[] priceCurrency) // получение курса валюты в зависимости от выбора пользователя
         {
-            double correctPrice;
             Console.WriteLine("\n" + curruncy[int.Parse(userChoice) - 1]);
-            Console.Write("Выберите направление конвертации: > < : ");
-            string choice = Console.ReadLine();
-            if (choice == ">")
-            {
-                correctPrice = priceCurrency[int.Parse(userChoice) - 1];
-            }
-            else
-            {
-                correctPrice = priceCurrency[int.Parse(userChoice)];
-            }
-            return correctPrice;
+            return priceCurrency[int.Parse(userChoice) - 1];
         }
     }
 }
