@@ -11,9 +11,7 @@ namespace CurrencyEnvelope
         static void Main(string[] args)
         {
             // 2. Добавить enum для валют и использовать его вместо строковых значений для выбора валюты
-            // добавить enum для цикла. если пользлватель нажмет клавишу x то программа завершится, если нажмет любую другую клавишу то программа продолжит работу
             // 3. добавить возможность пользователю вводить свои собственные курсы валют для конвертации
-            // 5. добавить обработку ошибок для некорректного ввода (например, если пользователь вводит не число для суммы конвертации)
 
 
 
@@ -47,8 +45,8 @@ namespace CurrencyEnvelope
                         break;
                 }
 
-                string workProgram = Console.ReadLine();
-                if (workProgram == "x")
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.X)
                 {
                     stopProgram = false;
                 }
@@ -59,8 +57,13 @@ namespace CurrencyEnvelope
         static double ConvertCurrency(double priceCurrency) // расчет конвертации валюты
         {
             Console.Write("Введите сумму для конвертации: ");
-            double sumConvert = Convert.ToDouble(Console.ReadLine());
-            return sumConvert * priceCurrency;
+            string convertSum = Console.ReadLine();
+            if (!double.TryParse(convertSum, out double sum) || sum <= 0)
+            {
+                Console.WriteLine("\nНекоректные данные.");
+                return 0;
+            }
+            return double.Parse(convertSum) * priceCurrency;
         }
 
         static double ReturnCurrency(string[] curruncy, string userChoice, double[] priceCurrency) // получение курса валюты в зависимости от выбора пользователя
