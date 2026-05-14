@@ -10,15 +10,42 @@ namespace CurrencyEnvelope
     {
         static void Main(string[] args)
         {
-            // 2. Добавить enum для валют и использовать его вместо строковых значений для выбора валюты
+
             // 3. добавить возможность пользователю вводить свои собственные курсы валют для конвертации
 
+            string[] currency =
+            {
+                 "TRY > RUB",
+                "RUB > TRY",
+                "USD > RUB",
+                "RUB > USD",
+                "EUR > RUB",
+                "RUB > EUR",
+                "TRY > USD",
+                "USD > TRY",
+                "TRY > EUR",
+                "EUR > TRY",
+                "USD > EUR",
+                "EUR > USD"
+            };
+              
+            string[] idCurruncy = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 
-
-            string[] currency = { "TRY > RUB", "RUB > TRY", "USD > RUB", "RUB > USD", "EUR > RUB", "RUB > EUR" }; 
-            string[] idCurruncy = { "1", "2", "3", "4", "5", "6" };
-            double[] priceCurrency = { 1.64, 0.61, 74.24, 0.013, 87.29, 0.011 }; 
-
+            double[] priceCurrency =
+            { 
+                1.64, // TRY > RUB
+                0.61,    // RUB > TRY
+                74.24,   // USD > RUB
+                0.013,   // RUB > USD
+                87.29,   // EUR > RUB
+                0.011,   // RUB > EUR
+                0.022,   // TRY > USD
+                45.43,   // USD > TRY
+               0.019,   // TRY > EUR
+                53.16,   // EUR > TRY
+                0.86,    // USD > EUR
+                1.17     // EUR > USD
+            };
 
             Console.WriteLine("Конвертация валют.\nЧтобы выйти, введите 'x'.");
             bool stopProgram = true;
@@ -51,7 +78,6 @@ namespace CurrencyEnvelope
                     stopProgram = false;
                 }
             }
-            
         }
 
         static double ConvertCurrency(double priceCurrency) // расчет конвертации валюты
