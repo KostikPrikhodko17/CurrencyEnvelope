@@ -10,9 +10,6 @@ namespace CurrencyEnvelope
     {
         static void Main(string[] args)
         {
-
-            // 3. добавить возможность пользователю вводить свои собственные курсы валют для конвертации
-
             string[] currency =
             {
                  "TRY > RUB",
@@ -34,17 +31,17 @@ namespace CurrencyEnvelope
             double[] priceCurrency =
             { 
                 1.64, // TRY > RUB
-                0.61,    // RUB > TRY
-                74.24,   // USD > RUB
-                0.013,   // RUB > USD
-                87.29,   // EUR > RUB
-                0.011,   // RUB > EUR
-                0.022,   // TRY > USD
-                45.43,   // USD > TRY
-               0.019,   // TRY > EUR
-                53.16,   // EUR > TRY
-                0.86,    // USD > EUR
-                1.17     // EUR > USD
+                0.61, // RUB > TRY
+                74.24, // USD > RUB
+                0.013, // RUB > USD
+                87.29, // EUR > RUB
+                0.011, // RUB > EUR
+                0.022, // TRY > USD
+                45.43, // USD > TRY
+               0.019, // TRY > EUR
+                53.16, // EUR > TRY
+                0.86, // USD > EUR
+                1.17  // EUR > USD
             };
 
             Console.WriteLine("Конвертация валют.\nЧтобы выйти, введите 'x'.");
