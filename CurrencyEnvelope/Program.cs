@@ -25,8 +25,6 @@ namespace CurrencyEnvelope
                 "USD > EUR",
                 "EUR > USD"
             };
-              
-            string[] idCurruncy = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 
             double[] priceCurrency =
             { 
@@ -45,21 +43,22 @@ namespace CurrencyEnvelope
             };
 
             Console.WriteLine("Конвертация валют.\nЧтобы выйти, введите 'x'.");
-            bool stopProgram = true;
-            while (stopProgram)
+            bool openProgram = true;
+            do
             {
                 Console.WriteLine("\nВыберите валюту для конвертации.");
 
-                for (int i = 0; i < idCurruncy.Length; i++)
+                for (int i = 1; i <= currency.Length; i++)
                 {
-                    Console.WriteLine(idCurruncy[i] + " - " + currency[i]);
+                 
+                    Console.WriteLine(Convert.ToString(i) + " - " + currency[i - 1]);
                 }
 
                 string userChoice = Console.ReadLine();
 
                 switch (userChoice)
                 {
-                    case string when idCurruncy.Contains(userChoice):
+                    case string when userChoice.Contains(userChoice):
                         double correctPrice = ReturnCurrency(currency, userChoice, priceCurrency);
                         double result = ConvertCurrency(correctPrice);
                         Console.WriteLine($"Результат конвертации: {currency[int.Parse(userChoice) - 1]} = {result}");
@@ -72,9 +71,10 @@ namespace CurrencyEnvelope
                 ConsoleKeyInfo key = Console.ReadKey();
                 if (key.Key == ConsoleKey.X)
                 {
-                    stopProgram = false;
+                    openProgram = false;
                 }
             }
+            while (openProgram);
         }
 
         static double ConvertCurrency(double priceCurrency) // расчет конвертации валюты
