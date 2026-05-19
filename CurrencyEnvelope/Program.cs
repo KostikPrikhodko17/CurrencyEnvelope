@@ -10,37 +10,21 @@ namespace CurrencyEnvelope
     {
         static void Main(string[] args)
         {
-            string[] currency =
-            {
-                 "TRY > RUB",
-                "RUB > TRY",
-                "USD > RUB",
-                "RUB > USD",
-                "EUR > RUB",
-                "RUB > EUR",
-                "TRY > USD",
-                "USD > TRY",
-                "TRY > EUR",
-                "EUR > TRY",
-                "USD > EUR",
-                "EUR > USD"
-            };
+            List<CurrencyInfo> currencyInfo = new List<CurrencyInfo>();
 
-            double[] priceCurrency =
-            { 
-                1.64, // TRY > RUB
-                0.61, // RUB > TRY
-                74.24, // USD > RUB
-                0.013, // RUB > USD
-                87.29, // EUR > RUB
-                0.011, // RUB > EUR
-                0.022, // TRY > USD
-                45.43, // USD > TRY
-               0.019, // TRY > EUR
-                53.16, // EUR > TRY
-                0.86, // USD > EUR
-                1.17  // EUR > USD
-            };
+            currencyInfo.Add(new CurrencyInfo { Name = "TRY > RUB", Rate = 1.64 });
+            currencyInfo.Add(new CurrencyInfo { Name = "RUB > TRY", Rate = 0.61 });
+            currencyInfo.Add(new CurrencyInfo { Name = "USD > RUB", Rate = 74.24 });
+            currencyInfo.Add(new CurrencyInfo { Name = "RUB > USD", Rate = 0.013 });
+            currencyInfo.Add(new CurrencyInfo { Name = "EUR > RUB", Rate = 87.29 });
+            currencyInfo.Add(new CurrencyInfo { Name = "RUB > EUR", Rate = 0.011 });
+            currencyInfo.Add(new CurrencyInfo { Name = "TRY > USD", Rate = 0.022 });
+            currencyInfo.Add(new CurrencyInfo { Name = "USD > TRY", Rate = 45.43 });
+            currencyInfo.Add(new CurrencyInfo { Name = "TRY > EUR", Rate = 0.019 });
+            currencyInfo.Add(new CurrencyInfo { Name = "EUR > TRY", Rate = 53.16 });
+            currencyInfo.Add(new CurrencyInfo { Name = "USD > EUR", Rate = 0.86 });
+            currencyInfo.Add(new CurrencyInfo { Name = "EUR > USD", Rate = 1.17 });
+
 
             Console.WriteLine("Конвертация валют.\nЧтобы выйти, введите 'x'.");
             bool openProgram = true;
@@ -48,30 +32,26 @@ namespace CurrencyEnvelope
             {
                 Console.WriteLine("\nВыберите валюту для конвертации.");
 
-                for (int i = 1; i <= currency.Length; i++)
+                for (int i = 0; i < currencyInfo.Count; i++)
                 {
-                 
-                    Console.WriteLine(Convert.ToString(i) + " - " + currency[i - 1]);
+                    Console.WriteLine($"{i + 1} - {currencyInfo[i].Name}");
                 }
 
                 string userChoice = Console.ReadLine();
 
-                switch (userChoice)
+                if (int.TryParse(userChoice, out int choice) && choice > 0 && choice <= currencyInfo.Count)
                 {
-                    case string when userChoice.Contains(userChoice):
-                        double correctPrice = ReturnCurrency(currency, userChoice, priceCurrency);
-                        double result = ConvertCurrency(correctPrice);
-                        Console.WriteLine($"Результат конвертации: {currency[int.Parse(userChoice) - 1]} = {result}");
-                        break;
-                    default:
-                        Console.WriteLine("Некорректный выбор валюты.");
-                        break;
+                    double correctPrice =ReturnCurrency(currencyInfo, choice);
+                    double result = ConvertCurrency(correctPrice);
+                    Console.WriteLine($"Результат конвертации {currencyInfo[choice -1].Name} = {result}");
                 }
-
-                ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.X)
+                else if (userChoice.ToLower() == "x")
                 {
                     openProgram = false;
+                }
+                else
+                {
+                    Console.WriteLine("\nНекоректные данные.");
                 }
             }
             while (openProgram);
@@ -86,13 +66,13 @@ namespace CurrencyEnvelope
                 Console.WriteLine("\nНекоректные данные.");
                 return 0;
             }
-            return double.Parse(convertSum) * priceCurrency;
+            return sum * priceCurrency;
         }
 
-        static double ReturnCurrency(string[] curruncy, string userChoice, double[] priceCurrency) // получение курса валюты в зависимости от выбора пользователя
+        static double ReturnCurrency(List<CurrencyInfo> currencyInfo, int userChoice) // получение курса валюты в зависимости от выбора пользователя
         {
-            Console.WriteLine("\n" + curruncy[int.Parse(userChoice) - 1]);
-            return priceCurrency[int.Parse(userChoice) - 1];
+            Console.WriteLine("\n" + currencyInfo[userChoice - 1].Name);
+            return currencyInfo[userChoice - 1].Rate;
         }
     }
 }
